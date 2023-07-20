@@ -8,6 +8,8 @@ import { SharedModule } from '../shared/shared.module';
 
 import { RouterModule } from '@angular/router' 
 import { PagesRoutingModule } from './pages-routing.module';
+import { FormsModule } from '@angular/forms';
+import { ComponentsModule } from '../components/components.module';
 
 @NgModule({
   declarations: [
@@ -18,9 +20,11 @@ import { PagesRoutingModule } from './pages-routing.module';
   ],
   imports: [ 
     CommonModule,
+    FormsModule,
     SharedModule,
     RouterModule,
-    PagesRoutingModule
+    PagesRoutingModule,
+    ComponentsModule
  ]
 })
 export class PagesModule { }
