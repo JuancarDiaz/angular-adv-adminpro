@@ -8,11 +8,12 @@ import { SharedModule } from '../shared/shared.module';
 
 import { RouterModule } from '@angular/router' 
 import { PagesRoutingModule } from './pages-routing.module';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ComponentsModule } from '../components/components.module';
 import { AccountSettingsComponent } from './account-settings/account-settings.component';
 import { PromesasComponent } from './promesas/promesas.component';
 import { RxJsComponent } from './rx-js/rx-js.component';
+import { PerfilComponent } from './perfil/perfil.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { RxJsComponent } from './rx-js/rx-js.component';
     PagesComponent,
     AccountSettingsComponent,
     PromesasComponent,
-    RxJsComponent
+    RxJsComponent,
+    PerfilComponent
   ],
   imports: [ 
     CommonModule,
@@ -30,7 +32,8 @@ import { RxJsComponent } from './rx-js/rx-js.component';
     SharedModule,
     RouterModule,
     PagesRoutingModule,
-    ComponentsModule
+    ComponentsModule,
+    ReactiveFormsModule
  ]
 })
 export class PagesModule { }

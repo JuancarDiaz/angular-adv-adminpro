@@ -16,11 +16,12 @@ public tituloSubs$!:Subscription;
 
   constructor( private router:Router){
     
-   this.tituloSubs$ = this.getArgumentosRuta().subscribe( ({titulo})=>{ 
+    this.tituloSubs$ = this.getArgumentosRuta().subscribe( ({titulo})=>{ 
+        
+      this.titulo = titulo
+      document.title = this.titulo
+    });
       
-    this.titulo = titulo
-    document.title = this.titulo
-  } );
   }
 
   ngOnDestroy(): void { this.tituloSubs$.unsubscribe(); console.log('NOS DESUSBSRIBIMOS DE LAS RUTAS'); }

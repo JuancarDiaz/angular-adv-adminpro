@@ -1,0 +1,98 @@
+
+
+
+
+
+
+
+<div class="row">
+
+
+    <div class="col-md-6">
+
+        <div class="card card-body">
+            <h3 class="box-title m-b-0">Sample Basic Forms</h3>
+            <p class="text-muted m-b-30 font-13"> Bootstrap Elements </p>
+            <div class="row">
+                <div class="col-sm-12 col-xs-12">
+                  
+                    <form [formGroup]="perfilForm" (ngSubmit)="actualizarPerfil()">
+
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">User Name</label>
+                            <input type="text" 
+                                   class="form-control"
+                                   id="exampleInputEmail1"
+                                   placeholder="Enter Username"
+                                   formControlName="nombre"
+                                   >
+                        </div>
+
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">Email address</label>
+                            <input type="email"
+                                   class="form-control"
+                                   id="exampleInputEmail1"
+                                   placeholder="Enter email"
+                                   formControlName="email"
+                                   [readOnly]="usuario.google"
+                                   >
+                        </div>
+                       
+                        <button type="submit"
+                                [disabled]="perfilForm.invalid"
+                                class="btn btn-success waves-effect btn-block waves-light m-r-10">
+                                 <i class="fa fa-save"></i>
+                                  Submit
+                        </button>
+
+                    </form>
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="col-md-6">
+       
+        <div class="card card-body">
+          
+                    
+
+                            <h4 class="card-title"> Avatar</h4>
+                            <h6 class="card-subtitle"> Imagen del usuario</h6>
+
+                            <div class="text-center">
+                                <img *ngIf="!imgVistaPrevia" [src]="usuario.imagenURL" style="width:200px;height: 200px ; border-radius: 10px;" >
+                                <img *ngIf="imgVistaPrevia" [src]="imgVistaPrevia" style="width:200px;height: 200px ; border-radius: 10px;" >
+                            </div>
+
+                            <input type="file" (change)="cambiarImagen($event)">
+
+                            <br>
+                          
+
+                        <button type="button"
+                                [disabled]="!imagenSubir"
+                                class="btn btn-success waves-effect waves-light m-r-10"
+                                (click)="subirImagen()">
+                            <i class="fa fa-save"></i>
+                             Submit
+                        </button>
+                        
+                        
+
+                    
+
+        </div>
+
+    </div>
+
+       
+
+
+
+
+</div>
+   
