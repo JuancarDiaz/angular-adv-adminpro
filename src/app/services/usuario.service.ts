@@ -2,9 +2,10 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { LoginForm, RegisterForm } from '../interfaces/register.form';
 import { environment } from 'src/environments/environment';
-import { Observable, catchError, map, of, tap } from 'rxjs';
+import { Observable, catchError, delay, map, of, tap } from 'rxjs';
 import { Router } from '@angular/router';
 import { Usuario } from '../models/usuario.model';
+import { CargarUsuarios } from '../interfaces/cargarUsuarios.interface';
 declare const google:any;
 
 
@@ -31,6 +32,14 @@ get token():string{
 get uid(){
 
   return this.usuario.uid || '';
+}
+
+get headers(){
+  return {
+    headers:{
+      'x-token':this.token
+    }
+  }
 }
 
 crearUsuario(  formData:RegisterForm ):Observable<any>{
@@ -124,6 +133,50 @@ actualizarPerfil( data:{email:string, nombre:string, role:string} ):Observable<a
   return this.http.put( `${ base_url }/usuarios/${ this.uid }`, data, { 
                                                            headers:{'x-token': this.token}
                                                          });
+
+}
+
+guardarUsuario( usuario:Usuario ):Observable<any>{
+
+
+  return this.http.put( `${ base_url }/usuarios/${ usuario.uid }`, usuario, { 
+                                                           headers:{'x-token': this.token}
+                                                         });
+
+}
+
+
+
+
+cargarUsuarios( desde:number = 0 ): Observable<CargarUsuarios>{ //Observable<{ total:number, usuarios:Usuario[] }>
+
+  const url = `${ base_url }/usuarios?desde=${ desde }`
+
+  return this.http.get<CargarUsuarios>( url, this.headers )
+                  .pipe(
+                    delay(100),
+                    map( (resp:CargarUsuarios) =>{
+
+        const usuarios = resp.usuarios.map( user => new Usuario( user.nombre, user.email, '', user.img, user.google, user.role, user.uid ));
+
+        return {
+                total:resp.total,
+                usuarios
+          };
+
+        } 
+  ))
+
+}
+
+
+
+eliminarUsuario( usuario: Usuario ):Observable<any>{
+
+  const url:string = `${ base_url }/usuarios/${ usuario.uid }`
+
+  return this.http.delete( url, this.headers );
+  
 
 }
 

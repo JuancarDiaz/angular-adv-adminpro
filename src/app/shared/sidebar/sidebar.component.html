@@ -28,7 +28,7 @@
 
                         <li class="nav-small-cap">PERSONAL</li>
                         
-                        <li *ngFor="let item of menuItems">
+        <li *ngFor="let item of menuItems">
 
                             <a class="has-arrow waves-effect waves-dark"  aria-expanded="false"> <!--routerLink="dashboard"-->
                             
@@ -40,17 +40,19 @@
                             </a>
 
                             <ul aria-expanded="false" class="collapse">
+
                                     <li *ngFor="let subitem of item.submenu">
                                         <a [routerLink]="subitem.url"
                                            routerLinkActive="active"
                                            [routerLinkActiveOptions]="{exact:true}"> {{ subitem.titulo }} </a>
                                     </li>
+                                    
                             </ul>
 
 
                             
 
-                        </li>
+        </li>
 <!--                       
                          <li>
                              <a class="has-arrow waves-effect waves-dark" href="#" aria-expanded="false">
