@@ -12,9 +12,12 @@ import { SidebarComponent } from './shared/sidebar/sidebar.component';
 import { AuthModule } from './auth/auth.module';
 
 
+
+
 @NgModule({
   declarations: [
     AppComponent,
+
    
   ],
   imports: [

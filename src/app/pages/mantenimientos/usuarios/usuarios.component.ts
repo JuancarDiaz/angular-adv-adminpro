@@ -102,7 +102,7 @@ buscar( termino:string ){
      if( termino.length === 0 ){ this.usuarios = [ ...this.usuariosTemp ];}
 
 
-     this.busquedasService.busqueda('usuarios',termino).subscribe( ( data:any[] ) => {
+     this.busquedasService.busqueda('usuarios',termino).subscribe( ( data:Usuario[] ) => {
       
           this.usuarios = data;
 

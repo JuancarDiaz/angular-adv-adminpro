@@ -1,9 +1,11 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { map } from 'rxjs';
+import { Observable, catchError, map, of } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { Usuario } from '../models/usuario.model';
 import { UsuarioService } from './usuario.service';
+import { Hospital } from '../models/hospital.model';
+import { Medico } from '../models/medico.model';
 
 @Injectable({
   providedIn: 'root'
@@ -37,15 +39,19 @@ export class BusquedasService {
   }
 
 
+  trasformarHospitales( resultados:Hospital[] ):Hospital[]{
+
+      return resultados.map( hosp => new Hospital(hosp.nombre,hosp._id, hosp.img, hosp.usuario));
+  }
+
+  trasformarMedicos( resultados:Medico[] ):Medico[]{
+
+    return resultados.map( hosp => new Medico(hosp.nombre,hosp._id, hosp.img, hosp.usuario));
+}
 
 
 
-
-
-
-
-
-  busqueda( tipo:'usuarios'|'medicos'|'hospitales', termino:string ){
+  busqueda( tipo:'usuarios'|'medicos'|'hospitales', termino:string ):Observable<any>{
 
     const url = `${ this.baseUrl }/todo/coleccion/${ tipo }/${ termino }`;
 
@@ -58,10 +64,14 @@ export class BusquedasService {
 
                                    return this.transformarUsuarios( resp.data );
                          
-                            // case 'hospitales':
+                              case 'hospitales':
                             
+                                  return this.trasformarHospitales( resp.data );
             
-                            // case 'medicos':
+                             case 'medicos':
+
+                                    return this.trasformarMedicos( resp.data );
+
                             
              
                         
@@ -73,7 +83,8 @@ export class BusquedasService {
                         }
 
                               //return resp.data.map( (user:Usuario) => new Usuario( user.nombre, user.email, '', user.img, user.google, user.role, user.uid ));
-                        })
+                        }),
+                        catchError( err => of([]))
                     )
 
 
